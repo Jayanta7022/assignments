@@ -43,9 +43,18 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
+const fs = require('fs');
 
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+function readData() {
+  const dsdata = fs.readFile('todos.json', 'utf-8', (err) => {
+    if (err) {
+      return 'wrong root';
+    }
+    return data;
+  });
+}
 
 let todos = [];
 
