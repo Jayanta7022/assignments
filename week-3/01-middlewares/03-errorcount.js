@@ -10,19 +10,19 @@ let errorCount = 0;
 // 1. Ensure that if there is ever an exception, the end user sees a status code of 404
 // 2. Maintain the errorCount variable whose value should go up every time there is an exception in any endpoint
 
-app.get('/user', errorCountfn, function (req, res) {
-  throw new Error('User not found');
-});
 function errorCountfn(err, req, res, next) {
   if (err) {
     errorCount++;
-    res.status(404);
+    res.status(404).json({ error: 'Not found' });
     return;
   } else {
     next();
   }
 }
 
+app.get('/user', function (req, res) {
+  throw new Error('User not found');
+});
 app.post('/user', errorCountfn, function (req, res) {
   res.status(200).json({ msg: 'created dummy user' });
 });
